@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title%}{{block.super}}Nuova Discussione{% endblock title %}
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-4 text-center">
+            <h3 class="my-3">Crea discussione in : {{sezione.nome}}</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" class="btn btn-info text-white my-2" value="CREA DISCUSSIONE">
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

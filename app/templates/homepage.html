@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}BENVENUTO SU ZENO!{% endblock title %}
+
+{% block content %}
+
+  <div class="row justify-content-center">
+    <div class="col-8 my-5">
+      {% for sezione in sezioni %}
+        <div class="card border-dark my-3">
+          <div class="card-header color"></div>
+          <div class="card-body">
+              <div class="row">
+                <div class="col-md-5 sezione">
+                  <img src="{{sezione.immagine.url}}">
+                </div>
+                <div class="col-lg-6">
+                  <h3>{{sezione.nome}}</h3>
+                  <p>{{sezione.descrizione}}</p>
+                  <div class="text-end"><a class="btn btn-info text-white" href="{% url 'section' pk=sezione.pk %}">Discussioni</a></div>
+                </div>
+              </div>
+          </div>
+          <div class="card-footer color"></div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if request.user.is_staff %}
+      <div class="col-3 text-center">
+        <h3 class="mb-5">++Area Staff++</h3>
+        <a class="btn-admin" href="http://127.0.0.1:8000/admin/">AMMINISTRAZIONE</a>
+        <a class="btn-admin" href="{% url 'new_section' %}">CREA SEZIONE</a>
+      </div>
+    {% endif %}
+  </div>
+
+
+{% endblock content %}
