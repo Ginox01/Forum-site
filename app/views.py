@@ -118,3 +118,4 @@ def form_post_risposta(request,pk):
         return HttpResponseBadRequest
 
 
+#CREARE PAGINATOR / DELETE VIEW / FUNZIONE CERCA / FINIRE LA HOMEPAGE

@@ -37,6 +37,9 @@
                   <!-- QUI ANDRA' L'ELIMINA POST! -->
                 {% endif %}
               </div>
+              {% if not forloop.last %}
+                <hr>
+              {% endif %}
             </div>
           {% endfor %}
         </div>

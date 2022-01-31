@@ -6,6 +6,28 @@
 {% block content %}
 
     {% for user in users %}
-        {% if forloop.first %} <div class="row">{% endif %}
+        {% if forloop.first %} <div class="row ms-1 me-1">{% endif %}
+            <div class="col-md-4">
+                <div class="mb-2 card border border-dark">
+                    <div class="card-header color text-center text-white">
+                        {% if request.user.username == user.username %}
+                            <p class="card-text">IL TUO PROFILO UTENTE</p>
+                        {% else %}
+                            <p class="card-text">PROFILO UTENTE</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text mt-0 mb-1"><a class="link-info" href="{% url 'user_profile' username=user.username %}"><strong>{{user.username}}</strong></a></p>
+                        <p class="card-text my-0">Discussioni : {{user.discussioni.count}}</p>
+                        <p class="card-text my-0">Post : {{user.posts.count}}</p>
+                        <p class="card-text my-0">Data iscrizione : {{user.date_joined}}</p>
+                    </div>
+                    <div class="card-footer color"></div>
+                </div>
+
+            </div>
+        {% if forloop.last or forloop.counter|divisibleby:"3" %}</div>{% endif %}
+        {% if forloop.counter|divisibleby:"3" and not forloop.last %}<div class="row ms-1 me-1">{% endif %}
+    {% endfor %}
 
 {% endblock content %}
