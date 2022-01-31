@@ -1,0 +1,18 @@
+
+{% load crispy_forms_tags %}
+
+
+
+
+
+    <div class="row justify-content-center my-5">
+        <div class="col-6 text-center">
+            <h3 class="my-3"></h3>
+            <form method="post" action="{% url 'answer-form' pk=discussione.pk %}">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" class="btn-admin my-2" value="RISPONDI">
+            </form>
+        </div>
+    </div>
+

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block title%}{{block.super}}Lista Utenti{% endblock title %}
+
+{% block content %}
+
+    {% for user in users %}
+        {% if forloop.first %} <div class="row">{% endif %}
+
+{% endblock content %}

@@ -4,6 +4,56 @@
 
 {% block content %}
 
-{{user.username}}
+    <div class="row justify-content-around">
+        <div class="col-md-4">
+            <div class="card border-dark ms-1">
+                <div class="card-header color text-white"style="height:40px">
+                    {% if request.user.username == user.username %}
+                        <p class="text-center">IL TUO PROFILO UTENTE</p>
+                    {% else %}
+                        <p class="text-center">PROFILO UTENTE</p>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <p class="card-text my-0">Utente <strong>{{user.username}}</strong></p>
+                    <p class="card-text my-0">Totale discussioni create : {{user.discussioni.count}}</p>
+                    <p class="card-text my-0">Post totali : {{user.posts.count}}</p>
+                    <p class="card-text my0">Data iscrizione : {{user.date_joined}}</p>
+                </div>
+                <div class="card-footer color"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+                <div class="card border-dark">
+                    <div class="card-header color text-white"style="height:40px">
+                        {% if request.user.username == user.username %}
+                            <p class="text-center"> LE TUE DISCUSSIONI</p>
+                        {% else %}
+                            <p class="text-center">LE SUE DISCUSSIONI</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for discussione in user.discussioni.all %}
+                                <div class="col-4">
+                                    <p class="card-text ms-1"><a class="link-info"href="{{discussione.get_absolute_url}}">{{discussione.titolo}}</a></p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="card-text">Numero di post : {{discussione.autore.posts.count }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p class="card-text">Data : {{discussione.data|date:"d/M/Y"}}</p>
+                                </div>
+                                {% if forloop.last %}
+                                {% else %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock content %}

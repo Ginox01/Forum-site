@@ -11,7 +11,7 @@ class Sezione(models.Model):
     immagine = models.ImageField()
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     def get_absolute_url(self):
         return reverse('section',kwargs={'pk':self.pk})
@@ -28,7 +28,10 @@ class Discussione(models.Model):
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.titolo
+        return str(self.titolo)
+
+    def get_absolute_url(self):
+        return reverse('discussion',kwargs={'pk':self.pk})
 
     class Meta:
         verbose_name = 'Discussione'
@@ -36,10 +39,10 @@ class Discussione(models.Model):
 
 class Post(models.Model):
     discussione_appartenenza = models.ForeignKey(Discussione,on_delete=models.CASCADE,related_name='posts_appartenenza')
-    autore = models.ForeignKey(Discussione,on_delete=models.CASCADE,related_name='posts')
+    autore = models.ForeignKey(User,on_delete=models.CASCADE,related_name='posts')
     contenuto = models.TextField()
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.autore
+        return str(self.autore)
 

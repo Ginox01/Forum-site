@@ -40,7 +40,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{% url 'user_profile' username=request.user.username %}">Profilo</a></li>
-                    <li><a class="dropdown-item" href="#">Lista Utenti</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users' %}">Lista Utenti</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'password_change' %}">Cambio Password</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

@@ -1,4 +1,5 @@
 from django.shortcuts import render ,HttpResponseRedirect , get_object_or_404 ,HttpResponse
+from django.http import HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login
 from django.contrib.auth.decorators import login_required
@@ -38,6 +39,11 @@ def user_profile(request,username):
     user = get_object_or_404(User,username=username)
     context = {'user':user}
     return render(request,'user_profile.html',context)
+
+def users(request):
+    users = User.objects.all()
+    context = {'users':users}
+    return render(request,'users.html',context)
 
 
 
@@ -90,9 +96,25 @@ def crea_discussione_form(request,pk):
 def discussione(request,pk):
     discussione = get_object_or_404(Discussione,pk=pk)
     posts = Post.objects.filter(discussione_appartenenza=discussione)
-    context = {'discussione':discussione,'posts':posts}
+    form_risposta = CreaPostForm()
+    context = {'discussione':discussione,'posts':posts,'form':form_risposta}
     return render(request,'discussione.html',context)
 
 
-# COSTRUIRE FORM RISPOSTA!
+
+
+def form_post_risposta(request,pk):
+    discussione = get_object_or_404(Discussione, pk=pk)
+    if request.method == 'POST':
+        form = CreaPostForm(request.POST)
+        if form.is_valid():
+            risposta = form.save(commit=False)
+            risposta.discussione_appartenenza = discussione
+            risposta.autore = request.user
+            risposta.save()
+            url = discussione.get_absolute_url()
+            return HttpResponseRedirect(url)
+    else:
+        return HttpResponseBadRequest
+
 

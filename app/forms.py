@@ -36,8 +36,15 @@ class CreaDiscussioneForm(forms.ModelForm):
         model = Discussione
         fields = ['titolo','primo_post',]
 
+
+
 class CreaPostForm(forms.ModelForm):
+
+    contenuto = forms.CharField(widget=forms.Textarea(attrs={
+        'rows':10
+    }))
 
     class Meta:
         model = Post
         fields = ['contenuto']
+        labels = {'contenuto':'Rispondi'}

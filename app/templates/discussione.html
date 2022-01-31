@@ -11,11 +11,11 @@
         <div class="card-header text-center text-white color">{{discussione.titolo}}</div>
         <div class="card-body">
           <div class="row">
-            <div class="col-4">
+            <div class="col-sm-4">
               <p class="card-text my-0">Autore discussione : <strong><a class="link-info" href="{% url 'user_profile' username=discussione.autore.username %}">{{discussione.autore}}</a></strong></p>
               <p class="card-text mb-1"><small>Data creazione : {{discussione.data|date:"d/m/Y"}}</small></p>
             </div>
-            <div class="col-8">
+            <div class="col-sm-8">
               <p class="card-text">{{discussione.primo_post}}</p>
             </div>
           </div>
@@ -23,11 +23,26 @@
             <p></p>
           </div>
           {% for post in posts %}
-
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="card-text mb-1 mt-1 "><a class="link-info" href="{% url 'user_profile' username=post.autore.username %}">{{post.autore}}</a></p>
+                <p class="card-text my-0 ">Posts : {{post.autore.posts.count}}</p>
+                <p class="card-text mt-0 mb-1"><small>Data : {{post.data}}</small></p>
+              </div>
+              <div class="col-sm-6">
+                <p class="card-text my-1">{{post.contenuto}}</p>
+              </div>
+              <div class="col-2">
+                {% if request.user == post.autore %}
+                  <!-- QUI ANDRA' L'ELIMINA POST! -->
+                {% endif %}
+              </div>
+            </div>
           {% endfor %}
         </div>
         <div class="card-footer color"></div>
       </div>
+      {% include 'form_risposta.html' %}
     </div>
   </div>
 

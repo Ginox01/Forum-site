@@ -17,17 +17,19 @@ from django.contrib import admin
 from django.urls import path , include
 
 from app.views import homepage , registrazione_user , user_profile , create_section , section , crea_discussione_form
-from app.views import discussione
+from app.views import discussione , form_post_risposta , users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homepage,name='homepage'),
     path('registrazione/',registrazione_user,name='user_registration'),
     path('user/<str:username>/', user_profile , name='user_profile'),
+    path('users/',users,name='users'),
     path('create_section/',create_section,name='new_section'),
     path('section/<int:pk>/',section,name='section'),
     path('section/<int:pk>/crea_discussione_form',crea_discussione_form,name='new-discussion'),
-    path('discussione/<int:pk>/',discussione,name='discussion')
+    path('discussione/<int:pk>/',discussione,name='discussion'),
+    path('discussione/<int:pk>/form_post_risposta',form_post_risposta,name='answer-form')
 ]
 
 
