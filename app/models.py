@@ -16,6 +16,15 @@ class Sezione(models.Model):
     def get_absolute_url(self):
         return reverse('section',kwargs={'pk':self.pk})
 
+    def get_last_discussions(self):
+        return Discussione.objects.filter(sezione_appartenenza=self).order_by("-data")[:3]
+
+    def get_number_of_posts(self):
+        return Post.objects.filter(discussione_appartenenza__sezione_appartenenza=self).count()
+
+    def get_number_of_discussions(self):
+        return Discussione.objects.filter(sezione_appartenenza=self).count()
+
     class Meta:
         verbose_name = 'Sezione'
         verbose_name_plural = 'Sezioni'

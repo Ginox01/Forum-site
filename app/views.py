@@ -3,6 +3,7 @@ from django.http import HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import Sezione , Discussione , Post
 from .forms import RegistrazioneUserForm , CreaSezioneForm , CreaDiscussioneForm , CreaPostForm
@@ -96,8 +97,11 @@ def crea_discussione_form(request,pk):
 def discussione(request,pk):
     discussione = get_object_or_404(Discussione,pk=pk)
     posts = Post.objects.filter(discussione_appartenenza=discussione)
+    paginator = Paginator(posts,5)
+    numero_pagina = request.GET.get('pagina')
+    page_obj = paginator.get_page(numero_pagina)
     form_risposta = CreaPostForm()
-    context = {'discussione':discussione,'posts':posts,'form':form_risposta}
+    context = {'discussione':discussione,'posts':page_obj,'form':form_risposta}
     return render(request,'discussione.html',context)
 
 
@@ -118,4 +122,19 @@ def form_post_risposta(request,pk):
         return HttpResponseBadRequest
 
 
-#CREARE PAGINATOR / DELETE VIEW / FUNZIONE CERCA / FINIRE LA HOMEPAGE
+def funzione_cerca(request):
+    if "q" in request.GET:
+        query = request.GET.get("q")
+        if len(query) == 0:
+            return HttpResponseRedirect('/')
+        else:
+            users = User.objects.filter(username__icontains=query)
+            discussioni = Discussione.objects.filter(titolo__icontains=query)
+            posts = Post.objects.filter(contenuto__icontains=query)
+            context = {'users':users,'discussioni':discussioni,'posts':posts}
+            return render(request,'funzione-cerca.html',context)
+
+
+
+
+#CREARE PAGINATOR (CONTINUARE) / DELETE VIEW

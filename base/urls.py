@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path , include
 
 from app.views import homepage , registrazione_user , user_profile , create_section , section , crea_discussione_form
-from app.views import discussione , form_post_risposta , users
+from app.views import discussione , form_post_risposta , users , funzione_cerca
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',homepage,name='homepage'),
+    path('search/',funzione_cerca,name='funzione_cerca'),
     path('registrazione/',registrazione_user,name='user_registration'),
     path('user/<str:username>/', user_profile , name='user_profile'),
     path('users/',users,name='users'),

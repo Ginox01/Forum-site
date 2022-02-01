@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{block.super}}risultati{% endblock title %}
+
+{% block content %}
+
+    <div class="row mb-5">
+        <div class="col-sm-4 text-center">
+            {% for user in users %}
+                {% if forloop.first %}
+                    <h3 class="my-2 mb-4"> Utenti trovati : </h3>
+                {% endif %}
+            <p>Utente : <a class="link-info" href="{% url 'user_profile' username=user.username%}">{{user.username}}</a></p>
+            {% empty %}
+                <p>Nessun utente con questo nome..</p>
+
+            <br><br>
+            {% endfor %}
+        </div>
+        <div class="col-sm-4 text-center">
+            {% for post in posts %}
+                {% if forloop.first %}
+                    <h3 class="my-2 mb-4">Post contenenti la parola ricercata :</h3>
+                {% endif %}
+            <p><a class="link-info" href="{% url 'discussion' pk=post.discussione_appartenenza.pk %}">Post</a> : {{post.contenuto|truncatewords:5}}</p>
+            {% empty %}
+                <p class="mt-1">Nessun post contenete la parola ricercata..</p>
+
+            <br><br>
+            {% endfor %}
+
+        </div>
+        <div class="col-sm-4 text-center">
+            {% for discussione in discussioni %}
+                {% if forloop.first %}
+                    <h3 class="my-2 mb-4">Discussioni trovate : </h3>
+                {% endif %}
+            <p><a class="link-info" href="{% url 'discussion' pk=discussione.pk %}">Discussione : </a>{{discussione.titolo}}</p>
+            {% empty %}
+                <p class="mt-1"><p>Nessuna discussione trovata</p>
+            <br><br>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row my-5 text-center">
+        <div><a class="btn-admin text-center link-info"href="{% url 'homepage' %}">HOMEPAGE</a></div>
+    </div>
+
+{% endblock content%}
