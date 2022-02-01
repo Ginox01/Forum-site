@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.generic import DeleteView
 
 from .models import Sezione , Discussione , Post
 from .forms import RegistrazioneUserForm , CreaSezioneForm , CreaDiscussioneForm , CreaPostForm
@@ -117,7 +118,12 @@ def form_post_risposta(request,pk):
             risposta.autore = request.user
             risposta.save()
             url = discussione.get_absolute_url()
-            return HttpResponseRedirect(url)
+            numero_di_pagine = discussione.get_number_of_pages()
+            if numero_di_pagine > 1:
+                success_url = str(url) + '?pagina=' + str(numero_di_pagine)
+                return HttpResponseRedirect(success_url)
+            else:
+                return HttpResponseRedirect(url)
     else:
         return HttpResponseBadRequest
 
@@ -136,5 +142,7 @@ def funzione_cerca(request):
 
 
 
+#class DeletePost(DeleteView)
 
-#CREARE PAGINATOR (CONTINUARE) / DELETE VIEW
+
+#DELETE VIEW

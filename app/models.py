@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from math import ceil
+
 # Create your models here.
 
 
@@ -41,6 +43,11 @@ class Discussione(models.Model):
 
     def get_absolute_url(self):
         return reverse('discussion',kwargs={'pk':self.pk})
+
+    def get_number_of_pages(self):
+        numero_di_posts = Post.objects.filter(discussione_appartenenza=self).count()
+        numero_di_pagine = ceil(numero_di_posts/5)
+        return numero_di_pagine
 
     class Meta:
         verbose_name = 'Discussione'

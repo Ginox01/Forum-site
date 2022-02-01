@@ -9,19 +9,21 @@
     <div class="col-8">
       <div class="card border border-dark">
         <div class="card-header text-center text-white color">{{discussione.titolo}}</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-4">
-              <p class="card-text my-0">Autore discussione : <strong><a class="link-info" href="{% url 'user_profile' username=discussione.autore.username %}">{{discussione.autore}}</a></strong></p>
-              <p class="card-text mb-1"><small>Data creazione : {{discussione.data|date:"d/m/Y"}}</small></p>
-            </div>
-            <div class="col-sm-8">
-              <p class="card-text">{{discussione.primo_post}}</p>
-            </div>
-          </div>
-          <div class="row color">
-            <p></p>
-          </div>
+        {% if '?pagina=1' in request.get_full_path or not 'pagina' in request.get_full_path %}
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="card-text my-0">Autore discussione : <strong><a class="link-info" href="{% url 'user_profile' username=discussione.autore.username %}">{{discussione.autore}}</a></strong></p>
+                  <p class="card-text mb-1"><small>Data creazione : {{discussione.data|date:"d/m/Y"}}</small></p>
+                </div>
+                <div class="col-sm-8">
+                  <p class="card-text">{{discussione.primo_post}}</p>
+                </div>
+              </div>
+              <div class="row color">
+                <p></p>
+              </div>
+        {% endif %}
           {% for post in posts %}
             <div class="row">
               <div class="col-sm-4">
@@ -30,7 +32,7 @@
                 <p class="card-text mt-0 mb-1"><small>Data : {{post.data}}</small></p>
               </div>
               <div class="col-sm-6">
-                <p class="card-text my-1">{{post.contenuto}}</p>
+                <p class="card-text my-1">{{post.contenuto|linebreaks}}</p>
               </div>
               <div class="col-2">
                 {% if request.user == post.autore %}
@@ -46,7 +48,29 @@
         <div class="card-footer color"></div>
       </div>
 
-      <!-- QUI ANDRA IL PAGINATOR -->
+      <div class="row justify-content-end">
+        <div class="col-4 text-center my-4">
+
+          <div class="pagination">
+              <span class="step-links">
+                  {% if posts.has_previous %}
+                      <a class="link-info" href="?pagina=1">&laquo; Prima</a>
+                      <a class="link-info" href="?pagina={{ posts.previous_page_number }}">Precedente</a>
+                  {% endif %}
+
+                  <span class="current">
+                      Pagina {{ posts.number }} di {{ posts.paginator.num_pages }}.
+                  </span>
+
+                  {% if posts.has_next %}
+                      <a href="?pagina={{ posts.next_page_number }}" class="link-info">Prossima</a>
+                      <a href="?pagina={{ posts.paginator.num_pages }}" class="link-info">Ultima &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
+
+        </div>
+      </div>
 
       {% include 'form_risposta.html' %}
     </div>
