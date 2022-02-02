@@ -15,30 +15,30 @@
                     </div>
             </div>
         </div>
-        <div class="row justify-content-end my-3">
-            <div class="col-4 text-center">
+        <div class="row justify-content-end my-4">
+            <div class="col-md-4 text-center">
                 <a class="btn-admin" href="{% url 'new-discussion' pk=sezione.pk%}">NUOVA DISCUSSIONE</a>
             </div>
         </div>
 
         <div class="row justify-content-center my-5">
-            <div class="col-10">
+            <div class="col-md-10">
                 <div class="card border border-dark">
                     <div class="card-header color"></div>
                     <div class="card-body">
                         {% for discussione in discussioni %}
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-md-3">
                                     <p class="card-text my-0"><a class="link-info" href="{% url 'user_profile' username=discussione.autore.username %}"><strong>{{discussione.autore}}</strong></a></p>
                                     <p class="card-text  my-0">Data : {{discussione.data|date:"d/M/Y"}}</p>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <p class="card-text my-0"><strong><a class="link-info" href="#">{{discussione.titolo}}</a></strong></p>
                                     <p class="card-text my-0">{{discussione.primo_post}}</p>
                                 </div>
-                                <div class="col-sm-3">
-                                    <p class="card-text my-0 ms-5">Numero di Posts : {{discussione.posts_appartenenza.count}}</p>
-                                    <p class="card-text mt-3 ms-5"><a class="btn btn-sm btn-info text-white ms-2 mb-1"href="{% url 'discussion' pk=discussione.pk%}">VAI ALLA DISCUSSIONE</a></p>
+                                <div class="col-lg-3">
+                                    <p class="card-text my-0">Numero di Posts : {{discussione.posts_appartenenza.count}}</p>
+                                    <p class="card-text mt-3"><a class="btn btn-sm btn-info text-white ms-2 mb-1"href="{% url 'discussion' pk=discussione.pk%}">VAI ALLA DISCUSSIONE</a></p>
                                 </div>
                                 {% if not forloop.last %}
                                     <hr style="color:blue">

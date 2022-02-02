@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="row justify-content-center">
+          <div class="col-6 text-center">
+            <h2 class="my-5">VUOI DAVVERO CANCELLARE IL POST??</h2>
+            <form method="post">
+                {% csrf_token%}
+                <input type="submit" class="btn-admin" value="CONFERMA">
+            </form>
+          </div>
+        </div>
+
+{% endblock content %}

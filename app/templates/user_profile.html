@@ -4,8 +4,8 @@
 
 {% block content %}
 
-    <div class="row justify-content-around">
-        <div class="col-md-4">
+    <div class="row justify-content-around my-2">
+        <div class="col-sm-4 my-2">
             <div class="card border-dark ms-1">
                 <div class="card-header color text-white"style="height:40px">
                     {% if request.user.username == user.username %}
@@ -23,7 +23,7 @@
                 <div class="card-footer color"></div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6 my-2">
                 <div class="card border-dark">
                     <div class="card-header color text-white"style="height:40px">
                         {% if request.user.username == user.username %}
@@ -35,13 +35,13 @@
                     <div class="card-body">
                         <div class="row">
                             {% for discussione in user.discussioni.all %}
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <p class="card-text ms-1"><a class="link-info"href="{{discussione.get_absolute_url}}">{{discussione.titolo}}</a></p>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-md-3">
                                     <p class="card-text">Numero di post : {{discussione.autore.posts.count }}</p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <p class="card-text">Data : {{discussione.data|date:"d/M/Y"}}</p>
                                 </div>
                                 {% if forloop.last %}

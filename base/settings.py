@@ -128,7 +128,7 @@ STATICFILES_DIRS = [BASE_DIR/'static']
 
 LOGIN_REDIRECT_URL = '/'
 
-MEDIA_ROOT = 'C:\\Users\\volpe\\PycharmProjects\\start-to-impact-forum-site\\base\\storadge'
+MEDIA_ROOT = 'C:\\Users\\Luigi\\PycharmProjects\\Start-to-Impact-forum-site\\start-to-impact-forum\\storadge'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

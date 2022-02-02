@@ -142,7 +142,14 @@ def funzione_cerca(request):
 
 
 
-#class DeletePost(DeleteView)
+class DeletePost(DeleteView):
+    model = Post
+    success_url = '/'
+    template_name = 'delete-post.html'
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        return query.filter(autore_id=self.request.user.id)
 
 
 #DELETE VIEW

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 
 from app.views import homepage , registrazione_user , user_profile , create_section , section , crea_discussione_form
-from app.views import discussione , form_post_risposta , users , funzione_cerca
+from app.views import discussione , form_post_risposta , users , funzione_cerca , DeletePost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +30,8 @@ urlpatterns = [
     path('section/<int:pk>/',section,name='section'),
     path('section/<int:pk>/crea_discussione_form',crea_discussione_form,name='new-discussion'),
     path('discussione/<int:pk>/',discussione,name='discussion'),
-    path('discussione/<int:pk>/form_post_risposta',form_post_risposta,name='answer-form')
+    path('discussione/<int:pk>/form_post_risposta',form_post_risposta,name='answer-form'),
+    path('discussione/<int:id>/elimina-post/<int:pk>',DeletePost.as_view(),name='delete')
 ]
 
 

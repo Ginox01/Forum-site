@@ -12,31 +12,34 @@
         {% if '?pagina=1' in request.get_full_path or not 'pagina' in request.get_full_path %}
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-4">
+                <div class="col-md-4">
                   <p class="card-text my-0">Autore discussione : <strong><a class="link-info" href="{% url 'user_profile' username=discussione.autore.username %}">{{discussione.autore}}</a></strong></p>
                   <p class="card-text mb-1"><small>Data creazione : {{discussione.data|date:"d/m/Y"}}</small></p>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-md-8">
                   <p class="card-text">{{discussione.primo_post}}</p>
                 </div>
               </div>
-              <div class="row color">
-                <p></p>
-              </div>
+
         {% endif %}
           {% for post in posts %}
+            {% if forloop.first %}
+                <div class="row color m-0 p-0">
+                    <p></p>
+                </div>
+            {% endif %}
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-md-4">
                 <p class="card-text mb-1 mt-1 "><a class="link-info" href="{% url 'user_profile' username=post.autore.username %}">{{post.autore}}</a></p>
                 <p class="card-text my-0 ">Posts : {{post.autore.posts.count}}</p>
                 <p class="card-text mt-0 mb-1"><small>Data : {{post.data}}</small></p>
               </div>
-              <div class="col-sm-6">
+              <div class="col-md-6">
                 <p class="card-text my-1">{{post.contenuto|linebreaks}}</p>
               </div>
-              <div class="col-2">
+              <div class="col-md-2">
                 {% if request.user == post.autore %}
-                  <!-- QUI ANDRA' L'ELIMINA POST! -->
+                  <a class="btn btn-sm btn-danger mt-4 mb-1" href="{% url 'delete' id=discussione.id pk=post.pk %}">ELIMINA</a>
                 {% endif %}
               </div>
               {% if not forloop.last %}
