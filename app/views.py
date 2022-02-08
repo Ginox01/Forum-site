@@ -15,7 +15,7 @@ from .forms import RegistrazioneUserForm , CreaSezioneForm , CreaDiscussioneForm
 def homepage(request):
     sezioni = Sezione.objects.all()
     context = {'sezioni':sezioni}
-    return render(request,'index.html',context)
+    return render(request,'homepage.html',context)
 
 def registrazione_user(request):
     if request.method == 'POST':
